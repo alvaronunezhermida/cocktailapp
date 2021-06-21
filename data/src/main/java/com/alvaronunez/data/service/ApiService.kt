@@ -11,5 +11,5 @@ interface ApiService{
     fun getIngredientsAsync(): Deferred<List<IngredientDTO>>
 
     @GET("list/1")
-    fun getDrinksByIngredient(ingredientName: String): Deferred<List<DrinkDTO>>
+    fun getDrinksByIngredientAsync(ingredientName: String): Deferred<List<DrinkDTO>>
 }
