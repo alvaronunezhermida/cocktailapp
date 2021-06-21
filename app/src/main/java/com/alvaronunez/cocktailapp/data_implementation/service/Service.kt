@@ -1,4 +1,4 @@
-package com.alvaronunez.data.service
+package com.alvaronunez.cocktailapp.data_implementation.service
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
