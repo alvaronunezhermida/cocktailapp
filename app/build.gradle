@@ -31,6 +31,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -46,6 +49,7 @@ dependencies {
 
     //Kotlin Libs
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2"
 
     //Libs
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
@@ -53,6 +57,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-moshi:2.4.0"
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+    implementation "org.koin:koin-core:2.2.2"
+    implementation "org.koin:koin-android:2.2.2"
+    implementation "org.koin:koin-androidx-viewmodel:2.2.2"
 
     // Android Kapt Libs
     kapt 'androidx.room:room-compiler:2.3.0'
@@ -61,4 +68,5 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'org.koin:koin-test:2.0.1'
 }

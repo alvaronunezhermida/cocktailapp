@@ -7,9 +7,9 @@ import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 
 interface ApiService{
-    @GET("categories")
+    @GET("list.php?i=list")
     fun getIngredientsAsync(): Deferred<List<IngredientDTO>>
 
-    @GET("list/1")
+    @GET("filter.php?i=Gin")
     fun getDrinksByIngredientAsync(ingredientName: String): Deferred<List<DrinkDTO>>
 }
