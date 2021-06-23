@@ -4,14 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.alvaronunez.cocktailapp.R
 import com.alvaronunez.cocktailapp.ui.viewmodel.SplashViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.alvaronunez.cocktailapp.ui.viewmodel.SplashViewModel.SplashModel
+import org.koin.androidx.scope.ScopeActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : ScopeActivity() {
 
     private val viewModel: SplashViewModel by viewModel()
 
