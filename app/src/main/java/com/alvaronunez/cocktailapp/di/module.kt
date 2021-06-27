@@ -30,26 +30,21 @@ fun Application.initDI() {
     startKoin {
         androidLogger(Level.NONE)
         androidContext(this@initDI)
-        modules(listOf(appModule, dataModule, domainModule, scopesModule))
+        modules(listOf(appModule, dataModule, scopesModule))
     }
 }
 
 private val appModule = module {
-    single(named("baseApiUrl")) { androidApplication().getString(R.string.base_api_url) }
     single { AppDatabase.build(get()) }
     factory<LocalDataSource> { RoomDataSource(get()) }
-    factory { Service(get(named("baseApiUrl"))) }
     factory<RemoteDataSource> { ServiceDataSource(get()) }
     single<CoroutineDispatcher> { Dispatchers.Main }
+    single(named("baseApiUrl")) { androidApplication().getString(R.string.base_api_url) }
+    factory { Service(get(named("baseApiUrl"))) }
 }
 
 private val dataModule = module {
     factory { Repository(get(), get()) }
-}
-
-private val domainModule = module {
-    factory { GetIngredientsUC(get()) }
-    factory { GetDrinksByIngredientUC(get()) }
 }
 
 private val scopesModule = module {
@@ -57,6 +52,7 @@ private val scopesModule = module {
         viewModel { SplashViewModel(get(), get()) }
         scoped { GetIngredientsUC(get()) }
     }
+
     scope(named<IngredientsActivity>()) {
         viewModel { IngredientsViewModel(get(), get()) }
         scoped { GetIngredientsUC(get()) }

@@ -2,7 +2,6 @@ package com.alvaronunez.cocktailapp.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.alvaronunez.cocktailapp.R
@@ -15,10 +14,9 @@ class SplashActivity : ScopeActivity() {
 
     private val viewModel: SplashViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        Toast.makeText(this, "HOLA", Toast.LENGTH_LONG).show()
         viewModel.loadIngredients()
         viewModel.model.observe(this, Observer(::updateUi))
     }

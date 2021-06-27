@@ -1,8 +1,8 @@
 package com.alvaronunez.cocktailapp.data_implementation.database
 
 import com.alvaronunez.data.Result
-import com.alvaronunez.data.models.IngredientDTO
 import com.alvaronunez.data.source.LocalDataSource
+import com.alvaronunez.domain.models.Ingredient
 
 class RoomDataSource(db: AppDatabase) : LocalDataSource {
 
@@ -15,14 +15,14 @@ class RoomDataSource(db: AppDatabase) : LocalDataSource {
             true
         }
 
-    override suspend fun getIngredients(): Result<List<IngredientDTO>> =
+    override suspend fun getIngredients(): Result<List<Ingredient>> =
         try {
-            Result.Response(ingredientDao.getAll().toIngredientDTOList())
+            Result.Response(ingredientDao.getAll().toDomainIngredientList())
         }catch (e: Exception) {
             Result.Error(e.message)
         }
 
-    override suspend fun saveIngredients(ingredients: List<IngredientDTO>): Result<Boolean> =
+    override suspend fun saveIngredients(ingredients: List<Ingredient>): Result<Boolean> =
         try {
             ingredientDao.insertIngredients(ingredients.toIngredientEntityList())
             Result.Response(true)

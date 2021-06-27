@@ -22,18 +22,19 @@ class IngredientsViewModel(
         }
 
     sealed class IngredientsModel {
-        object Loading : IngredientsModel()
+        data class Loading(val showLoading: Boolean) : IngredientsModel()
         data class Content(val ingredients: List<Ingredient>) : IngredientsModel()
         data class Error(val error: String?): IngredientsModel()
     }
 
     fun loadIngredients() {
         launch {
-            _model.value = IngredientsModel.Loading
+            _model.value = IngredientsModel.Loading(true)
             getIngredientsUC.invoke { result ->
                 when (result){
                     is Result.Response -> {
                         _model.value = IngredientsModel.Content(result.data)
+                        _model.value = IngredientsModel.Loading(false)
                     }
                     is Result.Error -> {
                         _model.value = IngredientsModel.Error(result.error)

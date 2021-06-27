@@ -13,11 +13,7 @@ class SplashViewModel(
 ) : ScopedViewModel(uiDispatcher) {
 
     private val _model = MutableLiveData<SplashModel>()
-    val model: LiveData<SplashModel>
-        get() {
-            if (_model.value == null) loadIngredients()
-            return _model
-        }
+    val model: LiveData<SplashModel> = _model
 
     sealed class SplashModel {
         object NavigateToIngredientsList : SplashModel()
@@ -26,8 +22,6 @@ class SplashViewModel(
 
     fun loadIngredients() {
         launch {
-            _model.value = SplashModel.NavigateToIngredientsList
-
             getIngredientsUC.invoke { result ->
                 when (result){
                     is com.alvaronunez.data.Result.Response -> {
