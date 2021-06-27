@@ -14,7 +14,4 @@ dependencies {
     //Kotlin Libs
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    //Libs
-    implementation 'com.squareup.moshi:moshi-kotlin:1.11.0'
-
 }

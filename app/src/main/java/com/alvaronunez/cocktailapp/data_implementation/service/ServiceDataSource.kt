@@ -1,25 +1,29 @@
 package com.alvaronunez.cocktailapp.data_implementation.service
 
 import com.alvaronunez.data.Result
-import com.alvaronunez.data.models.DrinkDTO
-import com.alvaronunez.data.models.IngredientDTO
 import com.alvaronunez.data.source.RemoteDataSource
+import com.alvaronunez.domain.models.Drink
+import com.alvaronunez.domain.models.Ingredient
+import com.alvaronunez.usecases.toDrinksList
+import com.alvaronunez.usecases.toIngredientsList
 
 
 class ServiceDataSource(private val service: Service): RemoteDataSource {
 
-    override suspend fun getIngredients(): Result<List<IngredientDTO>> =
+    override suspend fun getIngredients(): Result<List<Ingredient>> =
         try {
-            Result.Response(service.apiService
-                .getIngredientsAsync().await())
-        }catch (e: Exception) {
+            Result.Response(
+                service.apiService
+                    .getIngredientsAsync().await().toIngredientsList()
+            )
+        } catch (e: Exception) {
             Result.Error(e.message)
         }
 
-    override suspend fun getDrinksByIngredient(ingredientName: String): Result<List<DrinkDTO>> =
+    override suspend fun getDrinksByIngredient(ingredientName: String): Result<List<Drink>> =
         try {
             Result.Response(service.apiService
-                .getDrinksByIngredientAsync(ingredientName).await())
+                .getDrinksByIngredientAsync(ingredientName).await().toDrinksList())
         }catch (e: Exception) {
             Result.Error(e.message)
         }

@@ -1,10 +1,10 @@
 package com.alvaronunez.data.source
 
 import com.alvaronunez.data.Result
-import com.alvaronunez.data.models.DrinkDTO
-import com.alvaronunez.data.models.IngredientDTO
+import com.alvaronunez.domain.models.Drink
+import com.alvaronunez.domain.models.Ingredient
 
 interface RemoteDataSource {
-    suspend fun getIngredients(): Result<List<IngredientDTO>>
-    suspend fun getDrinksByIngredient(ingredientName: String): Result<List<DrinkDTO>>
+    suspend fun getIngredients(): Result<List<Ingredient>>
+    suspend fun getDrinksByIngredient(ingredientName: String): Result<List<Drink>>
 }
