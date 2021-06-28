@@ -27,7 +27,10 @@ class SplashActivity : ScopeActivity() {
 
     private fun updateUi(model: SplashModel) {
         when (model) {
-            is SplashModel.NavigateToIngredientsList -> startActivity<IngredientsActivity> {}
+            is SplashModel.NavigateToIngredientsList -> {
+                startActivity<IngredientsActivity> {}
+                finish()
+            }
             is SplashModel.Error -> {
                 Toast.makeText(this, model.error, Toast.LENGTH_LONG).show()
             }

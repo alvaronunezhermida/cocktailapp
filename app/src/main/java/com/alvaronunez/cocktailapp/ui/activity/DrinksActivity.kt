@@ -32,6 +32,7 @@ class DrinksActivity : ScopeActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDrinksBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.title = "Cocktails"
 
         viewModel.model.observe(this, Observer(::updateUi))
 

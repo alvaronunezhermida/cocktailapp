@@ -27,6 +27,7 @@ class IngredientsActivity : ScopeActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityIngredientsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.ingredientsToolbar.toolbar)
         adapter = IngredientsAdapter(viewModel::ingredientClicked)
         viewModel.loadIngredients()
         viewModel.model.observe(this, Observer(::updateUi))
