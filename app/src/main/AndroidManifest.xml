@@ -25,6 +25,8 @@
         </activity>
         <activity android:name=".ui.activity.IngredientsActivity"
             android:theme="@style/Theme.CocktailApp" />
+        <activity android:name=".ui.activity.DrinksActivity"
+            android:theme="@style/Theme.CocktailApp" />
     </application>
 
 </manifest>

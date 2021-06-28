@@ -7,32 +7,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alvaronunez.cocktailapp.R
 import com.alvaronunez.cocktailapp.ui.common.basicDiffUtil
 import com.alvaronunez.cocktailapp.ui.common.inflate
-import com.alvaronunez.domain.models.Ingredient
+import com.alvaronunez.domain.models.Drink
 
-class IngredientsAdapter(private val listener: (String) -> Unit) :
-    RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
+class DrinksAdapter :
+    RecyclerView.Adapter<DrinksAdapter.ViewHolder>() {
 
-    var ingredients: List<Ingredient> by basicDiffUtil(
+    var drinks: List<Drink> by basicDiffUtil(
         emptyList(),
         areItemsTheSame = { old, new -> old.name == new.name }
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = parent.inflate(R.layout.item_ingredient, false)
+        val view = parent.inflate(R.layout.item_drink, false)
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int = ingredients.size
+    override fun getItemCount(): Int = drinks.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val ingredient = ingredients[position]
-        holder.bind(ingredient)
-        holder.itemView.setOnClickListener { listener(ingredient.name) }
+        val drink = drinks[position]
+        holder.bind(drink)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(ingredient: Ingredient) {
-            itemView.findViewById<TextView>(R.id.ingredientName).text = ingredient.name
+        fun bind(drink: Drink) {
+            //TODO: use viewBinding
+            itemView.findViewById<TextView>(R.id.drinkName).text = drink.name
         }
     }
 }

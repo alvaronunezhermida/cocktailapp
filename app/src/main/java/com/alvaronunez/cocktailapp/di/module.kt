@@ -6,8 +6,10 @@ import com.alvaronunez.cocktailapp.data_implementation.database.AppDatabase
 import com.alvaronunez.cocktailapp.data_implementation.database.RoomDataSource
 import com.alvaronunez.cocktailapp.data_implementation.service.Service
 import com.alvaronunez.cocktailapp.data_implementation.service.ServiceDataSource
+import com.alvaronunez.cocktailapp.ui.activity.DrinksActivity
 import com.alvaronunez.cocktailapp.ui.activity.IngredientsActivity
 import com.alvaronunez.cocktailapp.ui.activity.SplashActivity
+import com.alvaronunez.cocktailapp.ui.viewmodel.DrinksViewModel
 import com.alvaronunez.cocktailapp.ui.viewmodel.IngredientsViewModel
 import com.alvaronunez.cocktailapp.ui.viewmodel.SplashViewModel
 import com.alvaronunez.data.repository.Repository
@@ -56,5 +58,10 @@ private val scopesModule = module {
     scope(named<IngredientsActivity>()) {
         viewModel { IngredientsViewModel(get(), get()) }
         scoped { GetIngredientsUC(get()) }
+    }
+
+    scope(named<DrinksActivity>()) {
+        viewModel { (ingredientName: String) -> DrinksViewModel(ingredientName, get(), get()) }
+        scoped { GetDrinksByIngredientUC(get()) }
     }
 }

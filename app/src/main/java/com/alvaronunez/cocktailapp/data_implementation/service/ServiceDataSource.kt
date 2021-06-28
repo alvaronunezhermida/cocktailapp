@@ -14,7 +14,7 @@ class ServiceDataSource(private val service: Service): RemoteDataSource {
         try {
             Result.Response(
                 service.apiService
-                    .getIngredientsAsync().await().toIngredientsList()
+                    .getIngredientsAsync().await().list.toIngredientsList()
             )
         } catch (e: Exception) {
             Result.Error(e.message)
@@ -23,7 +23,7 @@ class ServiceDataSource(private val service: Service): RemoteDataSource {
     override suspend fun getDrinksByIngredient(ingredientName: String): Result<List<Drink>> =
         try {
             Result.Response(service.apiService
-                .getDrinksByIngredientAsync(ingredientName).await().toDrinksList())
+                .getDrinksByIngredientAsync(ingredientName).await().list.toDrinksList())
         }catch (e: Exception) {
             Result.Error(e.message)
         }

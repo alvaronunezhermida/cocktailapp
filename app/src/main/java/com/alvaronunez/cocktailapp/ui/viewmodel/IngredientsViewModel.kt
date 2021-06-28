@@ -15,23 +15,20 @@ class IngredientsViewModel(
 ) : ScopedViewModel(uiDispatcher) {
 
     private val _model = MutableLiveData<IngredientsModel>()
-    val model: LiveData<IngredientsModel>
-        get() {
-            if (_model.value == null) loadIngredients()
-            return _model
-        }
+    val model: LiveData<IngredientsModel> = _model
 
     sealed class IngredientsModel {
         data class Loading(val showLoading: Boolean) : IngredientsModel()
         data class Content(val ingredients: List<Ingredient>) : IngredientsModel()
-        data class Error(val error: String?): IngredientsModel()
+        data class Error(val error: String?) : IngredientsModel()
+        data class NavigateToDrinks(val ingredientName: String) : IngredientsModel()
     }
 
     fun loadIngredients() {
         launch {
             _model.value = IngredientsModel.Loading(true)
             getIngredientsUC.invoke { result ->
-                when (result){
+                when (result) {
                     is Result.Response -> {
                         _model.value = IngredientsModel.Content(result.data)
                         _model.value = IngredientsModel.Loading(false)
@@ -42,6 +39,10 @@ class IngredientsViewModel(
                 }
             }
         }
+    }
+
+    fun ingredientClicked(ingredientName: String) {
+        _model.value = IngredientsModel.NavigateToDrinks(ingredientName)
     }
 
     init {
