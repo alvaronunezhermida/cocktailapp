@@ -9,7 +9,7 @@ import com.alvaronunez.cocktailapp.ui.common.basicDiffUtil
 import com.alvaronunez.cocktailapp.ui.common.inflate
 import com.alvaronunez.domain.models.Ingredient
 
-class IngredientsAdapter :
+class IngredientsAdapter(private val listener: (String) -> Unit) :
     RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 
     var ingredients: List<Ingredient> by basicDiffUtil(
@@ -27,6 +27,7 @@ class IngredientsAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ingredient = ingredients[position]
         holder.bind(ingredient)
+        holder.itemView.setOnClickListener { listener(ingredient.name) }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
