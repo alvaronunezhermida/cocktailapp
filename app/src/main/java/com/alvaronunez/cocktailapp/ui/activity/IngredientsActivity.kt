@@ -1,12 +1,13 @@
 package com.alvaronunez.cocktailapp.ui.activity
 
-import android.content.Intent
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.view.Menu
 import android.view.View
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.alvaronunez.cocktailapp.R
 import com.alvaronunez.cocktailapp.databinding.ActivityIngredientsBinding
 import com.alvaronunez.cocktailapp.ui.activity.DrinksActivity.Companion.INGREDIENT_NAME
@@ -52,5 +53,14 @@ class IngredientsActivity : ScopeActivity() {
                 putExtra(INGREDIENT_NAME, model.ingredientName)
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_search, menu)
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        (menu.findItem(R.id.search).actionView as SearchView).apply {
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        }
+        return true
     }
 }
