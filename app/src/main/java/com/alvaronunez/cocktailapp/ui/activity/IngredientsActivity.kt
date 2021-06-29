@@ -57,18 +57,6 @@ class IngredientsActivity : ScopeActivity() {
         }
     }
 
-    private fun handleIntent(intent: Intent) {
-        if (Intent.ACTION_SEARCH == intent.action) {
-            val query = intent.getStringExtra(SearchManager.QUERY)
-            //use the query to search your data somehow
-        }
-    }
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        handleIntent(intent)
-    }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
