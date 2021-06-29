@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Cocktail App</string>
     <string name="base_api_url">https://www.thecocktaildb.com/api/json/v1/1/</string>
+    <string name="search_hint">Busca por ingrediente</string>
 </resources>

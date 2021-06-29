@@ -1,6 +1,7 @@
 package com.alvaronunez.cocktailapp.ui.activity
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -32,10 +33,17 @@ class DrinksActivity : ScopeActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDrinksBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.title = intent.getStringExtra(INGREDIENT_NAME)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         viewModel.model.observe(this, Observer(::updateUi))
 
         binding.drinksRecycler.adapter = adapter
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) finish()
+        return true
     }
 
     private fun updateUi(model: DrinksModel) {

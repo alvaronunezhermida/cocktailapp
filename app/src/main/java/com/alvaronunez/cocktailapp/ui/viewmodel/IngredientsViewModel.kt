@@ -5,12 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import com.alvaronunez.cocktailapp.ui.common.ScopedViewModel
 import com.alvaronunez.data.Result
 import com.alvaronunez.domain.models.Ingredient
+import com.alvaronunez.usecases.GetIngredientsByNameUC
 import com.alvaronunez.usecases.GetIngredientsUC
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
 class IngredientsViewModel(
     private val getIngredientsUC: GetIngredientsUC,
+    private val getIngredientsByNameUC: GetIngredientsByNameUC,
     uiDispatcher: CoroutineDispatcher
 ) : ScopedViewModel(uiDispatcher) {
 
@@ -43,6 +45,22 @@ class IngredientsViewModel(
 
     fun ingredientClicked(ingredientName: String) {
         _model.value = IngredientsModel.NavigateToDrinks(ingredientName)
+    }
+
+    fun searchIngredient(ingredientName: String) {
+        launch {
+            getIngredientsByNameUC.invoke(ingredientName) { result ->
+                when (result) {
+                    is Result.Response -> {
+                        _model.value = IngredientsModel.Content(result.data)
+                        _model.value = IngredientsModel.Loading(false)
+                    }
+                    is Result.Error -> {
+                        _model.value = IngredientsModel.Error(result.error)
+                    }
+                }
+            }
+        }
     }
 
     init {

@@ -12,6 +12,9 @@ interface IngredientsDao {
     @Query("SELECT * FROM IngredientEntity")
     fun getAll(): List<IngredientEntity>
 
+    @Query("SELECT * FROM IngredientEntity WHERE UPPER(name) LIKE UPPER(:ingredientName)")
+    fun getIngredientsByName(ingredientName: String): List<IngredientEntity>
+
     @Query("SELECT COUNT(id) FROM IngredientEntity")
     fun ingredientsCount(): Int
 

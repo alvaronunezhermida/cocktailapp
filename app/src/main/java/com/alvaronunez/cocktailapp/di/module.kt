@@ -16,6 +16,7 @@ import com.alvaronunez.data.repository.Repository
 import com.alvaronunez.data.source.LocalDataSource
 import com.alvaronunez.data.source.RemoteDataSource
 import com.alvaronunez.usecases.GetDrinksByIngredientUC
+import com.alvaronunez.usecases.GetIngredientsByNameUC
 import com.alvaronunez.usecases.GetIngredientsUC
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -56,8 +57,9 @@ private val scopesModule = module {
     }
 
     scope(named<IngredientsActivity>()) {
-        viewModel { IngredientsViewModel(get(), get()) }
+        viewModel { IngredientsViewModel(get(), get(), get()) }
         scoped { GetIngredientsUC(get()) }
+        scoped { GetIngredientsByNameUC(get()) }
     }
 
     scope(named<DrinksActivity>()) {

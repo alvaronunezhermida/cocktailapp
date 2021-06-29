@@ -20,4 +20,6 @@ class Repository (
     }
 
     suspend fun getDrinksByIngredient(ingredientName: String) = remoteDataSource.getDrinksByIngredient(ingredientName)
+
+    suspend fun getIngredientsByName(ingredientName: String) = localDataSource.getIngredientsByName(ingredientName)
 }
