@@ -2,8 +2,10 @@ package com.alvaronunez.cocktailapp.ui.activity
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
@@ -55,11 +57,44 @@ class IngredientsActivity : ScopeActivity() {
         }
     }
 
+    private fun handleIntent(intent: Intent) {
+        if (Intent.ACTION_SEARCH == intent.action) {
+            val query = intent.getStringExtra(SearchManager.QUERY)
+            //use the query to search your data somehow
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         (menu.findItem(R.id.search).actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            onActionViewExpanded()
+            setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(p0: String): Boolean {
+                    if (p0.isBlank()) {
+                        viewModel.loadIngredients()
+                    }else{
+                        viewModel.searchIngredient(p0)
+                    }
+                    return true
+                }
+
+                override fun onQueryTextChange(p0: String): Boolean {
+                    if (p0.isBlank()) {
+                        viewModel.loadIngredients()
+                    }else{
+                        viewModel.searchIngredient(p0)
+                    }
+                    return true
+                }
+
+            })
         }
         return true
     }

@@ -30,4 +30,13 @@ class RoomDataSource(db: AppDatabase) : LocalDataSource {
             Result.Error(e.message)
         }
 
+    override suspend fun getIngredientsByName(ingredientName: String): Result<List<Ingredient>> =
+        try {
+            Result.Response(ingredientDao.getIngredientsByName("%$ingredientName%").toDomainIngredientList())
+        }catch (e: Exception) {
+            Result.Error(e.message)
+        }
+
+
+
 }
