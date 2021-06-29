@@ -53,7 +53,6 @@ class IngredientsViewModel(
                 when (result) {
                     is Result.Response -> {
                         _model.value = IngredientsModel.Content(result.data)
-                        _model.value = IngredientsModel.Loading(false)
                     }
                     is Result.Error -> {
                         _model.value = IngredientsModel.Error(result.error)

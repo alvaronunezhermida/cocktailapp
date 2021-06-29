@@ -32,7 +32,7 @@ class SplashViewModelTest {
     }
 
     @Test
-    fun `test view_navigateToIngredients() are called when data is retrieved`() {
+    fun `test model navigateToIngredients are called when data is retrieved`() {
         splashViewModel.model.observeForever(observer)
 
         val captureCallback = slot<(Result<List<Ingredient>>)-> Unit>()
@@ -46,7 +46,7 @@ class SplashViewModelTest {
     }
 
     @Test
-    fun `test view_showError() are called when data is retrieved with error`() {
+    fun `test model showError are called when data is retrieved with error`() {
         splashViewModel.model.observeForever(observer)
 
         val captureCallback = slot<(Result<List<Ingredient>>)-> Unit>()
